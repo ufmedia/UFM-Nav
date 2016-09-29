@@ -1,13 +1,14 @@
 <?php
 /*
 Plugin Name: UFM Nav Menu
-Description: This plugin builds a Bootstrap nav from the page structure within WP.
+Description: This plugin builds a Bootstrap nav from the page structure within WP. 
+It is included in all templates be default now, but also exists as this standalone plugin
 Version: 1.0.0
 Author: John Thompson
 Author URI: http://www.ufmedia.net
 */
 
-function get_nav() {
+function nav_init() {
 $currentID = get_the_ID();
 
 $args = array(
