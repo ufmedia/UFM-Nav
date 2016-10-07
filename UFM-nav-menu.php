@@ -8,7 +8,7 @@ Author: John Thompson
 Author URI: http://www.ufmedia.net
 */
 
-function nav_init() {
+function main_nav_init() {
 $currentID = get_the_ID();
 
 $args = array(
@@ -80,6 +80,46 @@ if( count( $children ) != 0 ) {
 
 	}
 }
+
+$navHTML .= '</ul>';
+
+return $navHTML;	
+
+}
+
+function footer_nav_init() {
+$currentID = get_the_ID();
+
+$args = array(
+
+			'post_type' => 'page',
+			'numberposts' => 100,
+			'orderby' => 'menu_order',
+			'order' => 'ASC',
+			'post_parent' => 0,
+			'meta_query' => array(
+				array(
+					'key' => 'hide_from_nav',
+					'value' => '"1"',
+					'compare' => 'NOT LIKE'
+					
+				) 
+			)
+			
+			);
+	
+$pages = get_posts($args);
+$navHTML .= '<ul>';
+foreach ($pages as $page) {
+
+	$navHTML .= '<li';
+	if ($page->ID == $currentID) {
+		$navHTML .= ' class="active"';
+	}
+	$navHTML .= '><a href="' . get_permalink($page->ID) . '">' . get_the_title($page->ID) . '</a></li>';
+
+	} 
+
 
 $navHTML .= '</ul>';
 
